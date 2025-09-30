@@ -55,6 +55,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
 
   --color-border: var(--border);
+  --breakpoint-md: 57rem;
 }
 
 html {
@@ -64,7 +65,7 @@ html {
 }
 
 .menu-button {
-  @apply px-2 py-0.5 hover:bg-accent/75 active:text-accent-foreground hover:text-accent-foreground rounded-lg active:bg-accent flex-1 gap-2 items-center-safe text-muted-foreground;
+  @apply cursor-pointer px-2 py-0.5 hover:bg-accent/75 active:text-accent-foreground hover:text-accent-foreground rounded-lg active:bg-accent flex-1 gap-2 items-center-safe;
 }
 
 .menu-enter {
