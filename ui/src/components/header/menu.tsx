@@ -1,4 +1,4 @@
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { Bell, Circle, User } from "./icons";
 
@@ -11,7 +11,7 @@ interface Button {
 export function Menu({ animation = "" }) {
   return (
     <div
-      className={`${animation} flex flex-1 flex-col md:flex-row-reverse max-md:min-w-[12rem] max-md:absolute max-md:top-11 max-md:right-4 max-md:border max-md:border-border rounded-lg max-md:bg-background max-md:transition-all max-md:duration-50 max-md:ease-in-out`}
+      className={`${animation} flex flex-1 flex-col md:flex-row-reverse max-md:min-w-[12rem] max-md:absolute max-md:top-11 max-md:right-4 max-md:border max-md:border-border rounded-lg max-md:bg-background max-md:transition-all max-md:duration-150 max-md:ease-in-out`}
     >
       <Profile />
       <Notifications />
@@ -47,8 +47,15 @@ function NavButton(props: Button) {
   useEffect(() => {
     router.prefetch(props.path);
   });
+
+  const isOnCurrentPage = props.path == usePathname();
   return (
-    <button onClick={handleClick} className="flex menu-button h-fit">
+    <button
+      onClick={handleClick}
+      className={`flex menu-button ${
+        isOnCurrentPage ? "text-accent" : "text-muted-foreground"
+      } h-fit`}
+    >
       <Circle />
       <span className="text-nowrap">{props.name}</span>
     </button>
@@ -73,8 +80,8 @@ function Profile() {
 
 function Notifications() {
   return (
-    <div className="flex p-0.5 max-md:border-y max-md:border-border text-muted-foreground md:ml-auto items-center-safe">
-      <button className="flex menu-button md:text-xs md:h-fit">
+    <div className="flex p-0.5 max-md:border-y max-md:border-border md:ml-auto items-center-safe">
+      <button className="flex menu-button text-muted-foreground md:text-xs md:h-fit">
         <Bell />
         <span className="md:sr-only">Notifications</span>
       </button>
