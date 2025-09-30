@@ -3,16 +3,15 @@
 import { useEffect, useState } from "react";
 import { AsteriskCircle, Burger } from "./header/icons";
 import { Menu } from "./header/menu";
+import Link from "next/link";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(true);
   const [animationClass, setAnimationClass] = useState("");
 
   useEffect(() => {
     const checkScreenSize = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
+      const mobile = window.innerWidth < 912;
 
       setIsMenuOpen(!mobile);
       setAnimationClass(mobile ? "" : "menu-enter-active");
@@ -29,19 +28,19 @@ export default function Header() {
       setTimeout(() => {
         setIsMenuOpen(false);
         setAnimationClass("menu-exit");
-      }, 50);
+      }, 150);
     } else {
       setIsMenuOpen(true);
       setAnimationClass("menu-enter");
-      setTimeout(() => setAnimationClass("menu-enter-active"), 10);
+      setTimeout(() => setAnimationClass("menu-enter-active"), 50);
     }
   };
   return (
-    <header className="flex items-center-safe p-3 bg-card border-b border-border md:py-1">
+    <header className="flex items-center-safe py-3 px-6 bg-card border-b border-border md:py-1">
       <Logo />
       {isMenuOpen && <Menu animation={animationClass} />}
       <button
-        className="ml-auto px-2 text-card-foreground transition-all duration-50 hover:scale-110 md:sr-only"
+        className="cursor-pointer ml-auto px-2 text-card-foreground transition-all duration-50 hover:scale-110 md:sr-only"
         onClick={toggleMenu}
       >
         <Burger />
@@ -52,9 +51,12 @@ export default function Header() {
 
 function Logo() {
   return (
-    <div className="flex items-center-safe gap-1">
+    <Link
+      href="/dashboard"
+      className="cursor-pointer flex items-center-safe gap-1"
+    >
       <AsteriskCircle />
       <span className="text-nowrap text-xl">Test Name</span>
-    </div>
+    </Link>
   );
 }
